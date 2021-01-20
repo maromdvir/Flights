@@ -1,0 +1,20 @@
+.list-group-item{
+    border: 0;
+}
+
+.active{
+    background-color: rgba(218, 218, 218, 1);
+    color: black;
+}
+
+.h-200px{
+    height: 100px;
+}
+
+.bg-cyan{
+    background-color: cyan;
+}
+
+.border, .border-bottom{
+    border-width: 2px !important;
+}

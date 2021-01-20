@@ -1,0 +1,51 @@
+<div class="container-fluid mt-5" *ngIf = "workers && selectedWorkerFlights; else loadingBlock">
+    <div class="row justify-content-center">
+        <div class="col-sm-2 border border-dark p-0">
+            <div class="h-200px bg-cyan border-bottom border-dark ">
+                <div class="row h-100 justify-content-center align-items-center font-weight-bold">
+                    workers!
+                </div>
+                
+            </div>
+            <div>
+                <ul class="list-group list-group-flush">
+                    <li *ngFor="let worker of workers"
+                        (click)="onWorkerSelected(worker)" 
+                        class="list-group-item list-group-item-action"
+                        [class.active]="worker === selectedWorker"
+                        [class.border]="worker === selectedWorker"
+                        [class.border-dark]="worker === selectedWorker"
+                        >{{worker.name}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-6 border-top border-bottom border-dark pt-4">
+            <app-table
+                *ngIf="!isLoadingFlights; else loadingBlock"
+                [colData] = "flightsTableColData"
+                [gridData] = "selectedWorkerFlights"
+                (onRowClick) = "onFlightSelected($event)"
+            ></app-table>
+        </div>
+        
+        <div *ngIf="selectedWorkerFlight" class="col-sm-2 border border-dark">
+                <ul class="list-group list-group-flush mt-5">
+                    <li *ngFor="let item of flightMoreInfoColData"
+                        class="list-group-item list-group-item-action">
+                    <div class="row">
+                        <div class="col-7">
+                            {{item.header}}
+                        </div>
+                        <div class="col-5">
+                            {{selectedWorkerFlight[item.field]}}
+                        </div>
+                    </div>
+                    </li>
+                </ul>
+        </div>
+    </div>
+</div>
+<ng-template #loadingBlock>
+    <div class="row justify-content-center align-items-center">Loading...</div>
+</ng-template>

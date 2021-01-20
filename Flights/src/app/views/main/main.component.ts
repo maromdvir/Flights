@@ -15,9 +15,10 @@ export class MainComponent implements OnInit, OnDestroy {
   selectedWorker: Worker;
   workers: Worker[];
   selectedWorkerFlights: Flight[];
-  selectedWorkerFlight: { [key: string] : any};
+  selectedWorkerFlight: {[key in keyof Flight]: any };
   isLoadingFlights: boolean;
   subscriptions: Subscription[] = [];
+
 
 
   flightsTableColData:{ field: string, header: string }[] = [

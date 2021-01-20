@@ -15,12 +15,12 @@ export class MainComponent implements OnInit, OnDestroy {
   selectedWorker: Worker;
   workers: Worker[];
   selectedWorkerFlights: Flight[];
-  selectedWorkerFlight: Flight;
+  selectedWorkerFlight: { [key: string] : any};
   isLoadingFlights: boolean;
   subscriptions: Subscription[] = [];
 
 
-  flightsTableColData: { field: string, header: string }[] = [
+  flightsTableColData:{ field: string, header: string }[] = [
     { field: 'num', header: 'Flight Number' },
     { field: 'from', header: 'Origin' },
     { field: 'from_date', header: 'Origin Date' },
@@ -35,7 +35,7 @@ export class MainComponent implements OnInit, OnDestroy {
     { field: 'to_gate', header: 'Destination gate' }
   ];
 
-
+   
   constructor(private flights: FlightsService) { }
 
 
@@ -78,6 +78,8 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.flights.getFlights(this.selectedWorker.id)
       .subscribe((flights: Flight[]) => {
         this.selectedWorkerFlights = flights;
+        this.selectedWorkerFlight = this.selectedWorkerFlights[0];
+        this.selectedWorkerFlight.stringDuration = this.flights.convertMinuts(this.selectedWorkerFlight.duration);
         this.isLoadingFlights = false;
       }
         , err => alert('flights error')
